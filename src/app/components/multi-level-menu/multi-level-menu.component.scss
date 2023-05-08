@@ -1,0 +1,39 @@
+.multi-level-menu {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  border: 1px solid #ccc;
+  padding: 0 20px;
+  font-weight: bold;
+  font-size: 14px;
+  color: #1f1f1f;
+  position: relative;
+
+  &__item {
+    white-space: nowrap;
+    margin-right: 24px;
+    padding: 4px;
+    cursor: pointer;
+
+    &.active,
+    &:hover {
+      color: #005abd;
+    }
+  }
+
+  &__other {
+    position: absolute;
+    cursor: pointer;
+    padding: 4px;
+
+    &:hover {
+      color: #005abd;
+    }
+
+    &-list {
+      position: absolute;
+    }
+    &-item {
+    }
+  }
+}
