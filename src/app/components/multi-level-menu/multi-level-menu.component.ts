@@ -31,6 +31,8 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
 
   @Input() childrenField = 'Children';
 
+  @Input() isChildren = false;
+
   @ViewChild('multiMenu', { static: false, read: null }) multiMenu: ElementRef;
 
   componentWidthTemp = 0;
@@ -40,6 +42,8 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
   multiLevelItem = null;
 
   showSubMenu = false;
+
+  dataSourceItem = [];
 
   constructor() {}
 
@@ -89,6 +93,14 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
 
         this.componentWidthTemp = componentWidth;
       }
+    }
+  }
+
+  toggleSubMenu(e, item) {
+    if (item[this.childrenField]) {
+      this.multiLevelItem = e.target;
+      this.showSubMenu = !this.showSubMenu;
+      this.dataSourceItem = item[this.childrenField];
     }
   }
 
