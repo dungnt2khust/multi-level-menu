@@ -14,6 +14,8 @@
     margin-right: 24px;
     padding: 4px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
 
     &.active,
     &:hover {
@@ -32,8 +34,24 @@
 
     &-list {
       position: absolute;
+      width: auto;
+      max-width: 300px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 8px 10px;
     }
     &-item {
+      white-space: nowrap;
+      font-weight: bold;
+      font-size: 14px;
+      color: #1f1f1f;
+      cursor: pointer;
+      padding: 8px 12px;
+
+      &.active,
+      &:hover {
+        color: #005abd;
+      }
     }
   }
 }

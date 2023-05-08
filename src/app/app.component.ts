@@ -12,6 +12,12 @@ export class AppComponent {
     {
       Id: 1,
       Name: 'Tin điều hành',
+      Children: [
+        {
+          Id: 11,
+          Name: 'Tin điều hành 1',
+        },
+      ],
     },
     {
       Id: 2,

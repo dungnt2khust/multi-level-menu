@@ -31,11 +31,15 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
 
   @Input() childrenField = 'Children';
 
-  @ViewChild('multiMenu', { static: false }) multiMenu: ElementRef;
+  @ViewChild('multiMenu', { static: false, read: null }) multiMenu: ElementRef;
 
   componentWidthTemp = 0;
 
   intervalListenWidthChange = null;
+
+  multiLevelItem = null;
+
+  showSubMenu = false;
 
   constructor() {}
 
@@ -72,13 +76,15 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
           for (let i = 0; i < menuItemElements.length; i++) {
             let itemWidth = menuItemElements[i].getBoundingClientRect().width;
             sumItemsWidth += itemWidth + this.MARGIN_ITEM_RIGHT;
-            this.itemsWidth.push(itemWidth + this.PADDING_LEFT_MENU);
+            this.itemsWidth.push(itemWidth + this.MARGIN_ITEM_RIGHT);
 
             if (sumItemsWidth >= componentWidth - this.OTHER_WIDTH) {
               this.visibleIndex = i - 1;
               break;
             }
           }
+          if (this.visibleIndex == 0)
+            this.visibleIndex = this.dataSource.length - 1;
         }
 
         this.componentWidthTemp = componentWidth;

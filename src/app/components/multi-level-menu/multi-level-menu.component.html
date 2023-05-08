@@ -4,35 +4,59 @@
     *ngFor="let item of dataSource; let i = index"
     [class.active]="i == 0"
     [style.visibility]="i <= visibleIndex ? 'visible' : 'hidden'"
+    (click)="multiLevelItem = $event.target; showSubMenu = !showSubMenu"
   >
     {{ item[displayField] }}
+    <div *ngIf="item[childrenField]">></div>
   </div>
+  <dx-popover
+    [target]="multiLevelItem"
+    [visible]="showSubMenu"
+    [position]="{
+      my: 'bottom left',
+      at: 'left bottom'
+    }"
+    [width]="auto"
+  >
+    <div *dxTemplate="let data = model; of: 'content'">
+      <h1>alo</h1>
+      <!-- <div class="multi-level-menu__other-list">
+        <div
+          class="multi-level-menu__other-item"
+          *ngFor="let item of dataSource.slice(visibleIndex + 1)"
+        >
+          {{ item[displayField] }}
+        </div>
+      </div> -->
+    </div>
+  </dx-popover>
+
   <div
     id="multi-level-menu__other"
     class="multi-level-menu__other"
     [style.left]="offsetOther"
+    *ngIf="visibleIndex < dataSource.length - 1"
   >
     Khác >
-    <!-- <div class="multi-level-menu__other-list">
-      <div
-        class="multi-level-menu__other-item"
-        *ngFor="let item of dataSource.slice(visibleIndex)"
-      >
-        {{ item[displayField] }}
-      </div>
-    </div> -->
   </div>
   <dx-popover
     target="#multi-level-menu__other"
     showEvent="click"
-    position="bottom"
-    [width]="300"
-    [showTitle]="true"
-    title="Details"
+    [position]="{
+      my: 'bottom left',
+      at: 'left bottom'
+    }"
+    [width]="auto"
   >
     <div *dxTemplate="let data = model; of: 'content'">
-      The designs for new brochures and website have been approved. Launch date
-      is set for Feb 28.
+      <div class="multi-level-menu__other-list">
+        <div
+          class="multi-level-menu__other-item"
+          *ngFor="let item of dataSource.slice(visibleIndex + 1)"
+        >
+          {{ item[displayField] }}
+        </div>
+      </div>
     </div>
   </dx-popover>
 </div>
