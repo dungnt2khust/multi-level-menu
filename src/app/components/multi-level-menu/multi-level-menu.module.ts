@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MultiLevelMenuComponent } from './multi-level-menu.component';
-import { DxSelectBoxModule } from 'devextreme-angular';
+import { DxPopoverModule } from 'devextreme-angular';
 
 @NgModule({
-  imports: [CommonModule, DxSelectBoxModule],
+  imports: [CommonModule, DxPopoverModule],
   declarations: [MultiLevelMenuComponent],
   exports: [MultiLevelMenuComponent],
 })
