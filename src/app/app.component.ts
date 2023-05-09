@@ -205,6 +205,7 @@ export class AppComponent {
   ];
 
   optionChange(e) {
+    console.log(e);
     this.idSelected = e.Id;
   }
 }
