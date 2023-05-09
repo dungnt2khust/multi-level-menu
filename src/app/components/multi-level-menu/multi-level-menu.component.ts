@@ -154,26 +154,30 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
       this.lastIndex = index;
     }
 
-    if (index != -1 && item[this.childrenField]) {
-      this.multiLevelItem = this.checkElementNestedByClass(
-        e.target,
-        'multi-level-menu__item'
-      );
-      this.dataSourceItem = item[this.childrenField];
-      var rect = this.multiLevelItem.getBoundingClientRect();
+    if (index != -1) {
+      if (item[this.childrenField]) {
+        this.multiLevelItem = this.checkElementNestedByClass(
+          e.target,
+          'multi-level-menu__item'
+        );
+        this.dataSourceItem = item[this.childrenField];
+        var rect = this.multiLevelItem.getBoundingClientRect();
 
-      if (index <= Math.ceil(this.visibleIndex / 2)) {
-        this.positionPopover = {
-          top: rect.bottom + 'px',
-          left: rect.left + 'px',
-        };
-        this.positionSubMenu = 'left';
+        if (index <= Math.ceil(this.visibleIndex / 2)) {
+          this.positionPopover = {
+            top: rect.bottom + 'px',
+            left: rect.left + 'px',
+          };
+          this.positionSubMenu = 'left';
+        } else {
+          this.positionPopover = {
+            top: rect.bottom + 'px',
+            right: window.innerWidth - rect.right + 'px',
+          };
+          this.positionSubMenu = 'right';
+        }
       } else {
-        this.positionPopover = {
-          top: rect.bottom + 'px',
-          right: window.innerWidth - rect.right + 'px',
-        };
-        this.positionSubMenu = 'right';
+        this.optionChange.emit(item);
       }
     }
 
@@ -191,10 +195,6 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
         right: window.innerWidth - rect.right + 'px',
       };
       this.positionSubMenu = 'right';
-    }
-
-    if (!item[this.childrenField]) {
-      this.optionChange.emit(item);
     }
   }
 
