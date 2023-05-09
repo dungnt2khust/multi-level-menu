@@ -131,13 +131,11 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
         this.positionPopover = {
           top: rect.bottom + 'px',
           left: rect.left + 'px',
-          right: 'unset',
         };
         this.positionSubMenu = 'left';
       } else {
         this.positionPopover = {
           top: rect.bottom + 'px',
-          left: 'unset',
           right: window.innerWidth - rect.right + 'px',
         };
         this.positionSubMenu = 'right';
