@@ -45,6 +45,10 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
   // Có build thành tree không
   @Input() buildTree = false;
 
+  @Input() value = -1;
+
+  @Output() valueChanged = new EventEmitter();
+
   _dataSource = [];
   @Input() set dataSource(value) {
     if (this.buildTree) {
@@ -205,6 +209,7 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
         }
       } else {
         this.optionChange.emit(item);
+        this.valueChanged.emit(item[valueField]);
       }
     }
 

@@ -2,7 +2,7 @@
   <div
     class="multi-level-menu__item"
     *ngFor="let item of dataSource; let i = index"
-    [class.active]="i == 0"
+    [class.active]="value == item[valueField]"
     [style.visibility]="i <= visibleIndex ? 'visible' : 'hidden'"
     (click)="toggleSubMenu($event, item, i)"
   >
@@ -22,6 +22,8 @@
       [maxHeight]="maxHeight"
       [position]="positionSubMenu"
       (optionChange)="optionChange.emit($event); showSubMenu = false"
+      [value]="value"
+      (valueChanged)="valueChanged.emit($event)"
     ></app-sub-menu>
   </div>
 

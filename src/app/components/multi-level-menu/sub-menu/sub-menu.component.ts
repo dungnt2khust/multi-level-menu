@@ -30,6 +30,10 @@ export class SubMenuComponent implements OnInit, OnDestroy {
 
   @Output() optionChange = new EventEmitter();
 
+  @Input() value = -1;
+
+  @Output() valueChanged = new EventEmitter();
+
   showSubMenu = false;
 
   subMenuItem = null;
@@ -94,6 +98,7 @@ export class SubMenuComponent implements OnInit, OnDestroy {
       }
     } else {
       this.optionChange.emit(item);
+      this.valueChanged.emit(item[this.valueField]);
     }
   }
 
