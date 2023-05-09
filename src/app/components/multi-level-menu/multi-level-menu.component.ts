@@ -208,8 +208,9 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
           this.positionSubMenu = 'right';
         }
       } else {
-        this.optionChange.emit(item);
         this.valueChanged.emit(item[this.valueField]);
+        this.optionChange.emit(item);
+        console.log(item[this.valueField]);
       }
     }
 
