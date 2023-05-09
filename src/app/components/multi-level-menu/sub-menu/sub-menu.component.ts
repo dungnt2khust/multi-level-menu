@@ -1,6 +1,7 @@
 import {
   Component,
   OnInit,
+  OnDestroy,
   Input,
   Renderer2,
   ViewChild,
@@ -12,7 +13,7 @@ import {
   templateUrl: './sub-menu.component.html',
   styleUrls: ['./sub-menu.component.scss'],
 })
-export class SubMenuComponent implements OnInit {
+export class SubMenuComponent implements OnInit, OnDestroy {
   @Input() dataSource = [];
 
   @Input() valueField = 'Id';
@@ -49,7 +50,19 @@ export class SubMenuComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    window.addEventListener('resize', this.hideSubMenu.bind(this));
+    window.addEventListener('scroll', this.hideSubMenu.bind(this));
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.hideSubMenu.bind(this));
+    window.removeEventListener('scroll', this.hideSubMenu.bind(this));
+  }
+
+  hideSubMenu() {
+    this.showSubMenu = false;
+  }
 
   toggleSubMenu(e, item, index) {
     if (item[this.childrenField]) {
@@ -59,7 +72,6 @@ export class SubMenuComponent implements OnInit {
       );
       this.dataSourceItem = item[this.childrenField];
       var rect = this.subMenuItem.getBoundingClientRect();
-      console.log(rect);
 
       if (this.position == 'left') {
         this.popoverPosition = {
