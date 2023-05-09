@@ -6,7 +6,7 @@
   <div
     class="sub-menu__item"
     *ngFor="let item of dataSource; let i = index"
-    [style.active]="value == item[valueField]"
+    [class.active]="value == item[valueField]"
     (click)="toggleSubMenu($event, item, i)"
   >
     {{ item[displayField] }}

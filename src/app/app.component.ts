@@ -8,7 +8,7 @@ import { Component, VERSION } from '@angular/core';
 export class AppComponent {
   name = 'Angular ' + VERSION.major;
   buildTree = false;
-  idSelected = 1;
+  idSelected = 11;
   // dataSource = [
   //   {
   //     Id: 1,
@@ -27,45 +27,45 @@ export class AppComponent {
       Name: 'Tin điều hành',
       Children: [
         {
-          Id: 11,
+          Id: 2,
           Name: 'Phòng chống covid',
           Children: [
             {
-              Id: 11,
+              Id: 3,
               Name: 'Tiêm vaccin',
               Children: [
                 {
-                  Id: 11,
+                  Id: 4,
                   Name: 'Tiêm mũi 2',
                 },
                 {
-                  Id: 11,
+                  Id: 5,
                   Name: 'Cập nhận trạng thái',
                 },
               ],
             },
             {
-              Id: 11,
+              Id: 6,
               Name: 'Đeo khẩu trang',
             },
           ],
         },
         {
-          Id: 11,
+          Id: 7,
           Name: 'Giữ vệ sinh',
         },
         {
-          Id: 11,
+          Id: 8,
           Name: 'Tuân thủ nội quy',
         },
       ],
     },
     {
-      Id: 2,
+      Id: 9,
       Name: 'Đào tạo - Chia sẻ',
     },
     {
-      Id: 3,
+      Id: 10,
       Name: 'Tin tức',
       Children: [
         {
@@ -73,138 +73,138 @@ export class AppComponent {
           Name: 'Phòng chống covid',
           Children: [
             {
-              Id: 11,
+              Id: 12,
               Name: 'Tiêm vaccin',
               Children: [
                 {
-                  Id: 11,
+                  Id: 13,
                   Name: 'Tiêm mũi 2',
                 },
                 {
-                  Id: 11,
+                  Id: 14,
                   Name: 'Cập nhận trạng thái',
                 },
               ],
             },
             {
-              Id: 11,
+              Id: 15,
               Name: 'Đeo khẩu trang',
             },
           ],
         },
         {
-          Id: 11,
+          Id: 16,
           Name: 'Giữ vệ sinh',
         },
         {
-          Id: 11,
+          Id: 17,
           Name: 'Tuân thủ nội quy',
         },
       ],
     },
     {
-      Id: 4,
+      Id: 18,
       Name: 'Bài học kinh doanh',
       Children: [
         {
-          Id: 11,
+          Id: 19,
           Name: 'Tin điều hành 1',
         },
       ],
     },
     {
-      Id: 5,
+      Id: 20,
       Name: 'Tuyển dụng',
       Children: [
         {
-          Id: 11,
+          Id: 21,
           Name: 'Tin điều hành 1',
         },
       ],
     },
     {
-      Id: 6,
+      Id: 22,
       Name: 'Người MISA',
       Children: [
         {
-          Id: 11,
+          Id: 23,
           Name: 'Tin điều hành 1',
         },
       ],
     },
     {
-      Id: 7,
+      Id: 24,
       Name: 'Tư vấn hỗ trợ',
       Children: [
         {
-          Id: 11,
+          Id: 25,
           Name: 'Tin điều hành 1',
         },
       ],
     },
     {
-      Id: 8,
+      Id: 26,
       Name: 'Sản phẩm mới',
     },
     {
-      Id: 9,
+      Id: 27,
       Name: 'Design Thinking',
     },
     {
-      Id: 10,
+      Id: 28,
       Name: 'Hợp tác đào tạo',
     },
     {
-      Id: 11,
+      Id: 29,
       Name: 'MISA 25 năm',
       Children: [
         {
-          Id: 11,
+          Id: 30,
           Name: 'Tiêm vaccin',
           Children: [
             {
-              Id: 11,
+              Id: 31,
               Name: 'Tiêm mũi 2',
             },
             {
-              Id: 11,
+              Id: 32,
               Name: 'Cập nhận trạng thái',
             },
           ],
         },
         {
-          Id: 11,
+          Id: 33,
           Name: 'Đeo khẩu trang',
         },
       ],
     },
     {
-      Id: 12,
+      Id: 34,
       Name: 'Góc an ninh',
     },
     {
-      Id: 8,
+      Id: 35,
       Name: 'Sản phẩm mới',
     },
     {
-      Id: 9,
+      Id: 36,
       Name: 'Design Thinking',
     },
     {
-      Id: 10,
+      Id: 37,
       Name: 'Hợp tác đào tạo',
     },
     {
-      Id: 11,
+      Id: 38,
       Name: 'MISA 25 năm',
     },
     {
-      Id: 12,
+      Id: 39,
       Name: 'Góc an ninh',
     },
   ];
 
   optionChange(e) {
-    console.log(e);
+    this.idSelected = e.Id;
   }
 }
