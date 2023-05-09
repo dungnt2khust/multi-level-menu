@@ -1,4 +1,8 @@
-<div class="sub-menu" [style.maxHeight]="maxHeight + 'px'">
+<div
+  class="sub-menu"
+  [style.maxHeight]="maxHeight + 'px'"
+  (scroll)="showSubMenu = false"
+>
   <div
     class="sub-menu__item"
     *ngFor="let item of dataSource; let i = index"

@@ -50,15 +50,9 @@ export class SubMenuComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit() {
-    document.addEventListener('resize', this.hideSubMenu.bind(this));
-    document.addEventListener('scroll', this.hideSubMenu.bind(this));
-  }
+  ngOnInit() {}
 
-  ngOnDestroy() {
-    document.removeEventListener('resize', this.hideSubMenu.bind(this));
-    document.removeEventListener('scroll', this.hideSubMenu.bind(this));
-  }
+  ngOnDestroy() {}
 
   hideSubMenu() {
     console.log('sdfaf');

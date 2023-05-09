@@ -69,8 +69,12 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    document.addEventListener('resize', this.hideSubMenu.bind(this));
-    document.addEventListener('scroll', this.hideSubMenu.bind(this));
+    window.addEventListener('resize', this.hideSubMenuResize.bind(this));
+    document.addEventListener(
+      'scroll',
+      this.hideSubMenuScroll.bind(this),
+      true
+    );
   }
 
   ngAfterViewInit() {
@@ -80,13 +84,23 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    document.removeEventListener('resize', this.hideSubMenu.bind(this));
-    document.removeEventListener('scroll', this.hideSubMenu.bind(this));
+    window.removeEventListener('resize', this.hideSubMenuResize.bind(this));
+    document.removeEventListener(
+      'scroll',
+      this.hideSubMenuScroll.bind(this),
+      true
+    );
 
     clearInterval(this.intervalListenWidthChange);
   }
 
-  hideSubMenu() {
+  hideSubMenuScroll(e) {
+    if (e.target && !e.target.classList?.contains('sub-menu')) {
+      this.showSubMenu = false;
+    }
+  }
+
+  hideSubMenuResize(e) {
     this.showSubMenu = false;
   }
 
