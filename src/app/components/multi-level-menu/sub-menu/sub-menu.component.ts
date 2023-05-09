@@ -6,6 +6,8 @@ import {
   Renderer2,
   ViewChild,
   ElementRef,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 
 @Component({
@@ -26,6 +28,8 @@ export class SubMenuComponent implements OnInit, OnDestroy {
 
   @Input() position = 'left';
 
+  @Output() optionChange = new EventEmitter();
+
   showSubMenu = false;
 
   subMenuItem = null;
@@ -33,6 +37,8 @@ export class SubMenuComponent implements OnInit, OnDestroy {
   dataSourceItem = [];
 
   popoverPosition = {};
+
+  lastIndex = -1;
 
   @ViewChild('popover', { static: false, read: null }) popover: ElementRef;
 
@@ -60,6 +66,13 @@ export class SubMenuComponent implements OnInit, OnDestroy {
   }
 
   toggleSubMenu(e, item, index) {
+    if (this.lastIndex == index) {
+      this.showSubMenu = !this.showSubMenu;
+    } else {
+      if (!this.showSubMenu) this.showSubMenu = true;
+      this.lastIndex = index;
+    }
+
     if (item[this.childrenField]) {
       this.subMenuItem = this.checkElementNestedByClass(
         e.target,
@@ -79,7 +92,8 @@ export class SubMenuComponent implements OnInit, OnDestroy {
           right: window.innerWidth - rect.left + 'px',
         };
       }
-      this.showSubMenu = !this.showSubMenu;
+    } else {
+      this.optionChange.emit(item);
     }
   }
 

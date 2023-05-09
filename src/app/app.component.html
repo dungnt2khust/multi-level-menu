@@ -3,8 +3,7 @@
     class="w-100"
     [isChildren]="false"
     [dataSource]="dataSource"
+    [maxHeight]="300"
+    (optionChange)="optionChange($event)"
   ></app-multi-level-menu>
-  <div class="test" style="height: 100px; overflow: auto">
-    <div style="height: 500px;"></div>
-  </div>
 </div>

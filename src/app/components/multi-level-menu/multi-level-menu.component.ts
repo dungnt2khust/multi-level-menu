@@ -11,6 +11,7 @@ import {
   ViewChild,
   ElementRef,
   Renderer2,
+  EventEmitter,
 } from '@angular/core';
 
 @Component({
@@ -36,6 +37,8 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
 
   @Input() maxHeight = 500;
 
+  @Output() optionChange = new EventEmitter();
+
   @ViewChild('multiMenu', { static: false, read: null }) multiMenu: ElementRef;
 
   @ViewChild('popover', { static: false, read: null }) popover: ElementRef;
@@ -53,6 +56,8 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
   positionPopover = {};
 
   positionSubMenu = 'left';
+
+  lastIndex = -1;
 
   constructor(private renderer: Renderer2) {
     /**
@@ -142,12 +147,18 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
   }
 
   toggleSubMenu(e, item, index) {
+    if (this.lastIndex == index) {
+      this.showSubMenu = !this.showSubMenu;
+    } else {
+      if (!this.showSubMenu) this.showSubMenu = true;
+      this.lastIndex = index;
+    }
+
     if (index != -1 && item[this.childrenField]) {
       this.multiLevelItem = this.checkElementNestedByClass(
         e.target,
         'multi-level-menu__item'
       );
-      this.showSubMenu = !this.showSubMenu;
       this.dataSourceItem = item[this.childrenField];
       var rect = this.multiLevelItem.getBoundingClientRect();
 
@@ -171,7 +182,6 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
         e.target,
         'multi-level-menu__other'
       );
-      this.showSubMenu = !this.showSubMenu;
       this.dataSourceItem = this.dataSource.slice(this.visibleIndex + 1);
       var rect = this.multiLevelItem.getBoundingClientRect();
 
@@ -181,6 +191,10 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
         right: window.innerWidth - rect.right + 'px',
       };
       this.positionSubMenu = 'right';
+    }
+
+    if (!item[this.childrenField]) {
+      this.optionChange.emit(item);
     }
   }
 

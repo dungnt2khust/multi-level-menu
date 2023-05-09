@@ -50,12 +50,6 @@ export class AppComponent {
     {
       Id: 2,
       Name: 'Đào tạo - Chia sẻ',
-      Children: [
-        {
-          Id: 11,
-          Name: 'Tin điều hành 1',
-        },
-      ],
     },
     {
       Id: 3,
@@ -176,4 +170,8 @@ export class AppComponent {
       Name: 'Góc an ninh',
     },
   ];
+
+  optionChange(e) {
+    console.log(e);
+  }
 }
