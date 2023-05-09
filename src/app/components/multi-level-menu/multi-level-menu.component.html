@@ -4,51 +4,32 @@
     *ngFor="let item of dataSource; let i = index"
     [class.active]="i == 0"
     [style.visibility]="i <= visibleIndex ? 'visible' : 'hidden'"
-    (click)="toggleSubMenu($event, item)"
+    (click)="toggleSubMenu($event, item, i)"
   >
     {{ item[displayField] }}
     <div *ngIf="item[childrenField]">></div>
   </div>
-  <dx-popover
-    [target]="multiLevelItem"
-    [visible]="showSubMenu"
-    [position]="{
-      my: 'bottom left',
-      at: 'top left'
-    }"
-    [width]="auto"
+  <div
+    *ngIf="showSubMenu"
+    #popover
+    class="multi-level-menu__popover"
+    [style.top]="positionPopover.top"
+    [style.left]="positionPopover.left"
+    [style.right]="positionPopover.right"
   >
-    <div *dxTemplate="let data = model; of: 'content'">
-      <app-sub-menu [dataSource]="dataSourceItem"></app-sub-menu>
-    </div>
-  </dx-popover>
+    <app-sub-menu
+      [dataSource]="dataSourceItem"
+      [maxHeight]="maxHeight"
+    ></app-sub-menu>
+  </div>
 
   <div
     id="multi-level-menu__other"
     class="multi-level-menu__other"
     [style.left]="offsetOther"
     *ngIf="visibleIndex < dataSource.length - 1"
+    (click)="toggleSubMenu($event, null, -1)"
   >
     Khác >
   </div>
-  <dx-popover
-    target="#multi-level-menu__other"
-    showEvent="click"
-    [position]="{
-      my: 'bottom left',
-      at: 'left bottom'
-    }"
-    [width]="auto"
-  >
-    <div *dxTemplate="let data = model; of: 'content'">
-      <div class="multi-level-menu__other-list">
-        <div
-          class="multi-level-menu__other-item"
-          *ngFor="let item of dataSource.slice(visibleIndex + 1)"
-        >
-          {{ item[displayField] }}
-        </div>
-      </div>
-    </div>
-  </dx-popover>
 </div>

@@ -10,6 +10,7 @@ import {
   Output,
   ViewChild,
   ElementRef,
+  Renderer2,
 } from '@angular/core';
 
 @Component({
@@ -33,7 +34,11 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
 
   @Input() isChildren = false;
 
+  @Input() maxHeight = 500;
+
   @ViewChild('multiMenu', { static: false, read: null }) multiMenu: ElementRef;
+
+  @ViewChild('popover', { static: false, read: null }) popover: ElementRef;
 
   componentWidthTemp = 0;
 
@@ -45,7 +50,21 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
 
   dataSourceItem = [];
 
-  constructor() {}
+  positionPopover = {};
+
+  constructor(private renderer: Renderer2) {
+    /**
+     * This events get called by all clicks on the page
+     */
+    this.renderer.listen('window', 'click', (e: Event) => {
+      if (
+        !this.popover?.nativeElement?.contains(e.target) &&
+        !this.multiLevelItem?.contains(e.target)
+      ) {
+        if (this.showSubMenu) this.showSubMenu = false;
+      }
+    });
+  }
 
   ngOnInit() {}
 
@@ -96,11 +115,39 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
     }
   }
 
-  toggleSubMenu(e, item) {
-    if (item[this.childrenField]) {
+  toggleSubMenu(e, item, index) {
+    if (index != -1 && item[this.childrenField]) {
       this.multiLevelItem = e.target;
       this.showSubMenu = !this.showSubMenu;
       this.dataSourceItem = item[this.childrenField];
+      var rect = this.multiLevelItem.getBoundingClientRect();
+
+      if (index <= Math.ceil(this.visibleIndex / 2)) {
+        this.positionPopover = {
+          top: rect.bottom + 'px',
+          left: rect.left + 'px',
+          right: 'unset',
+        };
+      } else {
+        this.positionPopover = {
+          top: rect.bottom + 'px',
+          left: 'unset',
+          right: window.innerWidth - rect.right + 'px',
+        };
+      }
+    }
+
+    if (index == -1) {
+      this.multiLevelItem = e.target;
+      this.showSubMenu = !this.showSubMenu;
+      this.dataSourceItem = this.dataSource.slice(this.visibleIndex + 1);
+      var rect = this.multiLevelItem.getBoundingClientRect();
+
+      this.positionPopover = {
+        top: rect.bottom + 'px',
+        left: 'unset',
+        right: window.innerWidth - rect.right + 'px',
+      };
     }
   }
 

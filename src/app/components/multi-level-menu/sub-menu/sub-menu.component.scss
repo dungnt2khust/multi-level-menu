@@ -2,4 +2,19 @@
   background-color: #fff;
   padding: 8px 12px;
   border: 1px solid #ccc;
+  overflow: auto;
+
+  &__item {
+    white-space: nowrap;
+    margin-right: 24px;
+    padding: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    &.active,
+    &:hover {
+      color: #005abd;
+    }
+  }
 }

@@ -14,6 +14,8 @@ export class SubMenuComponent implements OnInit {
 
   @Input() childrenField = 'Children';
 
+  @Input() maxHeight = 500;
+
   constructor() {}
 
   ngOnInit() {}
