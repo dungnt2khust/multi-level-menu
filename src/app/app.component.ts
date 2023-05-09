@@ -8,6 +8,7 @@ import { Component, VERSION } from '@angular/core';
 export class AppComponent {
   name = 'Angular ' + VERSION.major;
   buildTree = false;
+  idSelected = 1;
   // dataSource = [
   //   {
   //     Id: 1,
