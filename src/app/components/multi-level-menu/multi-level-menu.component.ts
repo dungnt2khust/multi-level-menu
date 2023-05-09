@@ -52,6 +52,8 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
 
   positionPopover = {};
 
+  positionSubMenu = 'left';
+
   constructor(private renderer: Renderer2) {
     /**
      * This events get called by all clicks on the page
@@ -128,12 +130,14 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
           left: rect.left + 'px',
           right: 'unset',
         };
+        this.positionSubMenu = 'left';
       } else {
         this.positionPopover = {
           top: rect.bottom + 'px',
           left: 'unset',
           right: window.innerWidth - rect.right + 'px',
         };
+        this.positionSubMenu = 'right';
       }
     }
 
@@ -148,6 +152,7 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
         left: 'unset',
         right: window.innerWidth - rect.right + 'px',
       };
+      this.positionSubMenu = 'right';
     }
   }
 

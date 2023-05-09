@@ -3,11 +3,30 @@
   padding: 8px 12px;
   border: 1px solid #ccc;
   overflow: auto;
+  /* width */
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 
   &__item {
     white-space: nowrap;
     margin-right: 24px;
-    padding: 4px;
+    padding: 8px 10px;
     cursor: pointer;
     display: flex;
     align-items: center;

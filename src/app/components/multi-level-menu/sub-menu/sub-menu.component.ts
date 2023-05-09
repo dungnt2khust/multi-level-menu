@@ -16,6 +16,8 @@ export class SubMenuComponent implements OnInit {
 
   @Input() maxHeight = 500;
 
+  @Input() position = 'left';
+
   constructor() {}
 
   ngOnInit() {}
