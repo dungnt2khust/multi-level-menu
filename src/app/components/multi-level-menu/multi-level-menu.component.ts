@@ -119,7 +119,10 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
 
   toggleSubMenu(e, item, index) {
     if (index != -1 && item[this.childrenField]) {
-      this.multiLevelItem = e.target;
+      this.multiLevelItem = this.checkElementNestedByClass(
+        e.target,
+        'multi-level-menu__item'
+      );
       this.showSubMenu = !this.showSubMenu;
       this.dataSourceItem = item[this.childrenField];
       var rect = this.multiLevelItem.getBoundingClientRect();
@@ -142,7 +145,10 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
     }
 
     if (index == -1) {
-      this.multiLevelItem = e.target;
+      this.multiLevelItem = this.checkElementNestedByClass(
+        e.target,
+        'multi-level-menu__other'
+      );
       this.showSubMenu = !this.showSubMenu;
       this.dataSourceItem = this.dataSource.slice(this.visibleIndex + 1);
       var rect = this.multiLevelItem.getBoundingClientRect();
@@ -154,6 +160,30 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
       };
       this.positionSubMenu = 'right';
     }
+  }
+
+  /**
+   * Kiểm tra element có thuộc một element cha có class cho trước hay không
+   */
+  checkElementNestedByClass(element, className) {
+    if (element && className) {
+      var parentE = element;
+      if (parentE) {
+        // Nếu không chứa class thì tiếp tục vòng lặp
+        while (parentE.classList.contains(className) == false) {
+          // Đi ra một element cha
+          parentE = parentE.parentElement;
+
+          // Khi đã duyệt hết mà không có thì set null và thoát vòng lặp
+          if (parentE.tagName == 'BODY') {
+            parentE = null;
+            break;
+          }
+        }
+      }
+      // Trả về kết quả
+      return parentE;
+    } else return null;
   }
 
   get offsetOther() {
