@@ -210,7 +210,6 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
       } else {
         this.valueChanged.emit(item[this.valueField]);
         this.optionChange.emit(item);
-        console.log(item[this.valueField]);
       }
     }
 
