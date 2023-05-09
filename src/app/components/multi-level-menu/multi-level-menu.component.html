@@ -7,7 +7,7 @@
     (click)="toggleSubMenu($event, item, i)"
   >
     {{ item[displayField] }}
-    <div *ngIf="item[childrenField]">></div>
+    <div *ngIf="!isEmptyArray(item[childrenField])">></div>
   </div>
   <div
     *ngIf="showSubMenu"
