@@ -1,9 +1,9 @@
 <div id="app">
   <app-multi-level-menu
     class="w-100"
-    [isChildren]="false"
     [dataSource]="dataSource"
     [maxHeight]="300"
+    [buildTree]="true"
     (optionChange)="optionChange($event)"
   ></app-multi-level-menu>
 </div>

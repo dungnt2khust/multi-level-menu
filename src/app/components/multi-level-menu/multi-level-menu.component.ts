@@ -20,22 +20,49 @@ import {
   styleUrls: ['./multi-level-menu.component.scss'],
 })
 export class MultiLevelMenuComponent implements OnInit, OnDestroy {
-  // Constants
-  MARGIN_ITEM_RIGHT = 24;
-  PADDING_LEFT_MENU = 20;
-  OTHER_WIDTH = 80;
+  // Constants ảnh hưởng đến tính toán vị trí
+  // Margin right của từng item
+  @Input() marginRightItem = 24;
+  // Padding left của menu
+  @Input() paddingLeftMenu = 20;
+  // Độ rộng của nút Khác
+  @Input() otherWidth = 80;
 
-  @Input() dataSource = [];
-
+  // Tên trường value
   @Input() valueField = 'Id';
-
+  // Tên trường hiên thị
   @Input() displayField = 'Name';
-
+  // Tên trường children
   @Input() childrenField = 'Children';
-
+  // Tên trường parentId
+  @Input() parentIdField = 'ParentId';
+  // Giá trị parentId mặc định
+  @Input() parentIdDefault: any = undefined;
+  // Có phải là children
   @Input() isChildren = false;
-
+  // Độ cao lớn nhất của children
   @Input() maxHeight = 500;
+  // Có build thành tree không
+  @Input() buildTree = false;
+
+  _dataSource = [];
+  @Input() set dataSource(value) {
+    if (this.buildTree) {
+      this._dataSource = this.list_to_tree(
+        value,
+        this.valueField,
+        this.parentIdField,
+        this.childrenField,
+        this.parentIdDefault
+      );
+      console.log(this._dataSource);
+    } else {
+      this._dataSource = value;
+    }
+  }
+  get dataSource() {
+    return this._dataSource;
+  }
 
   @Output() optionChange = new EventEmitter();
 
@@ -129,10 +156,10 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
         if (menuItemElements) {
           for (let i = 0; i < menuItemElements.length; i++) {
             let itemWidth = menuItemElements[i].getBoundingClientRect().width;
-            sumItemsWidth += itemWidth + this.MARGIN_ITEM_RIGHT;
-            this.itemsWidth.push(itemWidth + this.MARGIN_ITEM_RIGHT);
+            sumItemsWidth += itemWidth + this.marginRightItem;
+            this.itemsWidth.push(itemWidth + this.marginRightItem);
 
-            if (sumItemsWidth >= componentWidth - this.OTHER_WIDTH) {
+            if (sumItemsWidth >= componentWidth - this.otherWidth) {
               this.visibleIndex = i - 1;
               break;
             }
@@ -155,7 +182,7 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
     }
 
     if (index != -1) {
-      if (item[this.childrenField]) {
+      if (!this.isEmptyArray(item[this.childrenField])) {
         this.multiLevelItem = this.checkElementNestedByClass(
           e.target,
           'multi-level-menu__item'
@@ -222,12 +249,50 @@ export class MultiLevelMenuComponent implements OnInit, OnDestroy {
     } else return null;
   }
 
+  /**
+   * Kiểm tra mảng rỗng
+   */
+  isEmptyArray(arr) {
+    return !arr || !arr.length;
+  }
+
+  /**
+   * Build list to tree
+   */
+  list_to_tree(list, idField, parentIdField, childrenField, parentIdDefault) {
+    list = list.sort((a, b) => a[idField] - b[idField]);
+
+    var map = {},
+      node,
+      roots = [],
+      i;
+
+    for (i = 0; i < list.length; i += 1) {
+      map[list[i][idField]] = i;
+      list[i][childrenField] = [];
+    }
+
+    for (i = 0; i < list.length; i += 1) {
+      node = list[i];
+      if (node[parentIdField] !== parentIdDefault) {
+        if (list[map[node[parentIdField]]]) {
+          list[map[node[parentIdField]]][childrenField].push(node);
+        } else {
+          roots.push(node);
+        }
+      } else {
+        roots.push(node);
+      }
+    }
+    return roots;
+  }
+
   get offsetOther() {
     return (
       this.itemsWidth
         .slice(0, this.visibleIndex + 1)
         .reduce((result, curr) => result + curr, 0) +
-      this.PADDING_LEFT_MENU +
+      this.paddingLeftMenu +
       'px'
     );
   }

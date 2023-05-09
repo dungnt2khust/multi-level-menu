@@ -73,7 +73,7 @@ export class SubMenuComponent implements OnInit, OnDestroy {
       this.lastIndex = index;
     }
 
-    if (item[this.childrenField]) {
+    if (!this.isEmptyArray(item[this.childrenField])) {
       this.subMenuItem = this.checkElementNestedByClass(
         e.target,
         'sub-menu__item'
@@ -95,6 +95,13 @@ export class SubMenuComponent implements OnInit, OnDestroy {
     } else {
       this.optionChange.emit(item);
     }
+  }
+
+  /**
+   * Kiểm tra mảng rỗng
+   */
+  isEmptyArray(arr) {
+    return !arr || !arr.length;
   }
 
   /**

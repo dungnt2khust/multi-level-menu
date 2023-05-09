@@ -28,6 +28,7 @@
     cursor: pointer;
     display: flex;
     align-items: center;
+    border: 1px solid transparent;
 
     &.active,
     &:hover {
