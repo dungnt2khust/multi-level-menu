@@ -21,7 +21,7 @@
       [dataSource]="dataSourceItem"
       [maxHeight]="maxHeight"
       [position]="positionSubMenu"
-      (optionChange)="optionChange.emit($event)"
+      (optionChange)="optionChange.emit($event); showSubMenu = false"
     ></app-sub-menu>
   </div>
 
