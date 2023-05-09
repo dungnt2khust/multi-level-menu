@@ -1,5 +1,24 @@
 <div class="sub-menu" [style.maxHeight]="maxHeight + 'px'">
-  <div class="sub-menu__item" *ngFor="let item of dataSource; let i = index">
+  <div
+    class="sub-menu__item"
+    *ngFor="let item of dataSource; let i = index"
+    (click)="toggleSubMenu($event, item, i)"
+  >
     {{ item[displayField] }}
+    <div *ngIf="item[childrenField]">></div>
+  </div>
+  <div
+    *ngIf="showSubMenu"
+    #popover
+    class="sub-menu__popover"
+    [style.top]="popoverPosition.top"
+    [style.left]="popoverPosition.left"
+    [style.right]="popoverPosition.right"
+  >
+    <app-sub-menu
+      [dataSource]="dataSourceItem"
+      [maxHeight]="maxHeight"
+      [position]="position"
+    ></app-sub-menu>
   </div>
 </div>

@@ -1,4 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Renderer2,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 
 @Component({
   selector: 'app-sub-menu',
@@ -18,7 +25,78 @@ export class SubMenuComponent implements OnInit {
 
   @Input() position = 'left';
 
-  constructor() {}
+  showSubMenu = false;
+
+  subMenuItem = null;
+
+  dataSourceItem = [];
+
+  popoverPosition = {};
+
+  @ViewChild('popover', { static: false, read: null }) popover: ElementRef;
+
+  constructor(private renderer: Renderer2) {
+    /**
+     * This events get called by all clicks on the page
+     */
+    this.renderer.listen('window', 'click', (e: Event) => {
+      if (
+        !this.popover?.nativeElement?.contains(e.target) &&
+        !this.subMenuItem?.contains(e.target)
+      ) {
+        if (this.showSubMenu) this.showSubMenu = false;
+      }
+    });
+  }
 
   ngOnInit() {}
+
+  toggleSubMenu(e, item, index) {
+    if (item[this.childrenField]) {
+      this.subMenuItem = this.checkElementNestedByClass(
+        e.target,
+        'sub-menu__item'
+      );
+      this.dataSourceItem = item[this.childrenField];
+      var rect = this.subMenuItem.getBoundingClientRect();
+      console.log(rect);
+
+      if (this.position == 'left') {
+        this.popoverPosition = {
+          top: rect.top - 1 + 'px',
+          left: rect.right + 'px',
+        };
+      } else {
+        this.popoverPosition = {
+          top: rect.top - 1 + 'px',
+          right: window.innerWidth - rect.left + 'px',
+        };
+      }
+      this.showSubMenu = !this.showSubMenu;
+    }
+  }
+
+  /**
+   * Kiểm tra element có thuộc một element cha có class cho trước hay không
+   */
+  checkElementNestedByClass(element, className) {
+    if (element && className) {
+      var parentE = element;
+      if (parentE) {
+        // Nếu không chứa class thì tiếp tục vòng lặp
+        while (parentE.classList.contains(className) == false) {
+          // Đi ra một element cha
+          parentE = parentE.parentElement;
+
+          // Khi đã duyệt hết mà không có thì set null và thoát vòng lặp
+          if (parentE.tagName == 'BODY') {
+            parentE = null;
+            break;
+          }
+        }
+      }
+      // Trả về kết quả
+      return parentE;
+    } else return null;
+  }
 }

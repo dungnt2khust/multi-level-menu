@@ -15,7 +15,35 @@ export class AppComponent {
       Children: [
         {
           Id: 11,
-          Name: 'Tin điều hành 1',
+          Name: 'Phòng chống covid',
+          Children: [
+            {
+              Id: 11,
+              Name: 'Tiêm vaccin',
+              Children: [
+                {
+                  Id: 11,
+                  Name: 'Tiêm mũi 2',
+                },
+                {
+                  Id: 11,
+                  Name: 'Cập nhận trạng thái',
+                },
+              ],
+            },
+            {
+              Id: 11,
+              Name: 'Đeo khẩu trang',
+            },
+          ],
+        },
+        {
+          Id: 11,
+          Name: 'Giữ vệ sinh',
+        },
+        {
+          Id: 11,
+          Name: 'Tuân thủ nội quy',
         },
       ],
     },
@@ -35,7 +63,35 @@ export class AppComponent {
       Children: [
         {
           Id: 11,
-          Name: 'Tin điều hành 1',
+          Name: 'Phòng chống covid',
+          Children: [
+            {
+              Id: 11,
+              Name: 'Tiêm vaccin',
+              Children: [
+                {
+                  Id: 11,
+                  Name: 'Tiêm mũi 2',
+                },
+                {
+                  Id: 11,
+                  Name: 'Cập nhận trạng thái',
+                },
+              ],
+            },
+            {
+              Id: 11,
+              Name: 'Đeo khẩu trang',
+            },
+          ],
+        },
+        {
+          Id: 11,
+          Name: 'Giữ vệ sinh',
+        },
+        {
+          Id: 11,
+          Name: 'Tuân thủ nội quy',
         },
       ],
     },
